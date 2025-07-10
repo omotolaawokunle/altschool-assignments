@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Audio-Visual About Me</title>
+  </head>
+  <body>
+    <header>
+      <h1>About Me</h1>
+    </header>
+    <main>
+      <section>
+        <h2>Picture</h2>
+        <picture>
+          <source srcset="images/me-mobile.jpg" width="200" media="(max-width: 600px)" />
+          <source srcset="images/me-tablet.jpg" width="200" media="(max-width: 992px)" />
+          <source srcset="images/me-laptop.jpg" width="300" height="auto" media="(min-width: 993px)" />
+          <img src="images/me-mobile.jpg" alt="Portrait of Omotola" />
+        </picture>
+      </section>
+
+      <section>
+        <h2>Audio Introduction</h2>
+        <audio controls>
+          <source src="audio/about-me.m4a" type="audio/mpeg" />
+          Your browser does not support the audio element.
+        </audio>
+      </section>
+
+      <section>
+        <h2>Video Message</h2>
+        <video width="320" height="240" controls>
+          <source src="video/about-me.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </section>
+
+      <p><a href="index.html">Back to Profile</a></p>
+    </main>
+  </body>
+</html>
