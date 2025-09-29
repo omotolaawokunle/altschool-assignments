@@ -1,0 +1,297 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #c94b4b 0%, #d65858 100%);
+    padding: 2rem;
+    transition: all 0.5s ease;
+}
+
+body.has-laps {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+    padding: 3rem;
+}
+
+.container {
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+    padding: 1rem;
+    transition: all 0.5s ease;
+}
+
+body.has-laps .container {
+    max-width: none;
+}
+
+/* Clear button */
+.clear-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 3rem;
+    font-weight: 300;
+    letter-spacing: 8px;
+    cursor: pointer;
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.clear-btn:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+/* Time display */
+.display {
+    margin-bottom: 4rem;
+}
+
+.time {
+    font-size: 8rem;
+    font-weight: 300;
+    color: white;
+    letter-spacing: 10px;
+    font-family: 'Arial', sans-serif;
+}
+
+.milliseconds {
+    font-size: 3rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.8);
+    letter-spacing: 5px;
+    margin-top: -1rem;
+}
+
+/* Start/Stop button */
+.main-button {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #f4d35e, #e8c74a);
+    border: none;
+    color: white;
+    font-size: 2rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        0 40px 60px rgba(139, 69, 19, 0.4);
+    transition: all 0.3s ease;
+    margin: 0 auto 2rem;
+    display: block;
+    text-transform: lowercase;
+}
+
+.main-button:hover {
+    transform: translateY(-5px);
+    box-shadow:
+        0 25px 50px rgba(0, 0, 0, 0.35),
+        0 45px 70px rgba(139, 69, 19, 0.45);
+}
+
+.main-button:active {
+    transform: translateY(-2px);
+}
+
+/* Secondary buttons */
+.secondary-controls {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.secondary-btn {
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    background: transparent;
+    color: white;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.secondary-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: white;
+    transform: translateY(-2px);
+}
+
+.secondary-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Lap times section */
+.laps-panel {
+    display: none;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    align-self: self-start;
+}
+
+body.has-laps .laps-panel {
+    display: block;
+    animation: slideIn 0.5s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.laps-title {
+    color: white;
+    font-size: 2rem;
+    font-weight: 300;
+    letter-spacing: 3px;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+}
+
+.laps {
+    max-height: 70vh;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+body:not(.has-laps) .laps {
+    display: none;
+}
+
+.lap-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    margin: 0.5rem 0;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+    color: white;
+}
+
+.lap-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(5px);
+}
+
+.lap-number {
+    font-weight: 700;
+    opacity: 0.8;
+}
+
+.lap-time {
+    font-family: 'Arial', sans-serif;
+    letter-spacing: 2px;
+}
+
+/* Scrollbar styling */
+.laps::-webkit-scrollbar {
+    width: 8px;
+}
+
+.laps::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.laps::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    body.has-laps {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .time {
+        font-size: 5rem;
+        letter-spacing: 5px;
+    }
+
+    .clear-btn {
+        font-size: 2rem;
+        letter-spacing: 5px;
+        margin-bottom: 2rem;
+    }
+
+    .main-button {
+        width: 220px;
+        height: 220px;
+        font-size: 1.6rem;
+        margin-bottom: 2rem;
+    }
+
+    .secondary-btn {
+        padding: 0.8rem 2rem;
+        font-size: 1rem;
+    }
+
+    .laps-title {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+
+    body,
+    body.has-laps {
+        padding: 1rem;
+    }
+
+    .time {
+        font-size: 3.5rem;
+        letter-spacing: 3px;
+    }
+
+    .main-button {
+        width: 180px;
+        height: 180px;
+        font-size: 1.4rem;
+    }
+
+    .secondary-controls {
+        gap: 1rem;
+    }
+
+    .secondary-btn {
+        padding: 0.7rem 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    .laps-panel {
+        padding: 1.5rem;
+    }
+}

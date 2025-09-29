@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Stopwatch</title>
+    <link href="./style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Clear button -->
+        <button class="clear-btn" id="clearBtn">CLEAR</button>
+        
+        <!-- Time Display -->
+        <div class="display">
+            <div class="time" id="display">00:00:00</div>
+            <div class="milliseconds" id="milliseconds">.000</div>
+        </div>
+
+        <!-- Main Start/Stop Button -->
+        <button class="main-button" id="mainBtn">start/stop</button>
+
+        <!-- Secondary Buttons -->
+        <div class="secondary-controls">
+            <button class="secondary-btn" id="lapBtn" disabled>Lap</button>
+            <button class="secondary-btn" id="resetBtn">Reset</button>
+        </div>
+    </div>
+
+    <!-- Lap Times Panel (appears on the side when laps exist) -->
+    <div class="laps-panel">
+        <h2 class="laps-title">Laps</h2>
+        <div class="laps" id="laps"></div>
+    </div>
+
+    <script src="./script.js" type="text/javascript">
+       
+    </script>
+</body>
+</html>
