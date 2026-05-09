@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guessing Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app">
+        <div class="join-screen" id="joinScreen">
+            <div class="join-card">
+                <h1 class="title">Guessing Game</h1>
+                <p class="subtitle">Challenge your friends in real-time</p>
+                
+                <form id="joinForm">
+                    <div class="input-group">
+                        <label for="usernameInput">Your Name</label>
+                        <input type="text" id="usernameInput" placeholder="Enter your name" 
+                               maxlength="20" autocomplete="off" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="sessionInput">Session Code</label>
+                        <input type="text" id="sessionInput" placeholder="Leave empty to create new" 
+                               maxlength="6" autocomplete="off">
+                        <span class="hint">Share this code with friends to join</span>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        <span>Join Game</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </form>
+                
+                <div id="joinError" class="error-message"></div>
+            </div>
+            
+            <div class="decorative">
+                <div class="orb orb-1"></div>
+                <div class="orb orb-2"></div>
+                <div class="orb orb-3"></div>
+            </div>
+        </div>
+
+        <div class="game-screen hidden" id="gameScreen">
+            <header class="header">
+                <div class="header-left">
+                    <h2 class="session-title">Session: <span id="sessionCode"></span></h2>
+                    <button class="btn btn-ghost btn-sm" id="copyCodeBtn" title="Copy session code">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="header-right">
+                    <div class="status-badge" id="gameStatus">
+                        <span class="status-dot"></span>
+                        <span id="statusText">Lobby</span>
+                    </div>
+                    <button class="btn btn-ghost btn-sm" id="leaveBtn">Leave</button>
+                </div>
+            </header>
+
+            <main class="main-content">
+                <aside class="sidebar" id="sidebar">
+                    <div class="players-section">
+                        <h3 class="sidebar-title">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                            Players
+                            <span class="player-count" id="playerCount">0</span>
+                        </h3>
+                        <ul class="player-list" id="playerList"></ul>
+                    </div>
+                    
+                    <div class="leaderboard-section">
+                        <h3 class="sidebar-title">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M8.21 13.89L7 23l5-3 5 3-1.21-9.12"/>
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                            Scores
+                        </h3>
+                        <ul class="score-list" id="scoreList"></ul>
+                    </div>
+                </aside>
+
+                <div class="chat-area">
+                    <div class="messages-container" id="messagesContainer">
+                        <div class="welcome-message" id="welcomeMessage">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M12 16v-4M12 8h.01"/>
+                            </svg>
+                            <p>Welcome to the game! Waiting for players to join...</p>
+                        </div>
+                    </div>
+
+                    <div class="question-display hidden" id="questionDisplay">
+                        <div class="question-header">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                                <path d="M12 17h.01"/>
+                            </svg>
+                            <span>Question</span>
+                            <div class="timer" id="timer">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12 6 12 12 16 14"/>
+                                </svg>
+                                <span id="timerValue">60</span>s
+                            </div>
+                        </div>
+                        <p class="question-text" id="questionText"></p>
+                    </div>
+
+                    <div class="input-area" id="inputArea">
+                        <form id="guessForm" class="guess-form hidden">
+                            <input type="text" id="guessInput" placeholder="Type your answer..." autocomplete="off">
+                            <button type="submit" class="btn btn-primary">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                                </svg>
+                            </button>
+                        </form>
+                        
+                        <div class="gm-controls hidden" id="gmControls">
+                            <h4>Game Master Controls</h4>
+                            <div class="setup-inputs" id="setupForm">
+                                <input type="text" id="questionInput" placeholder="Enter your question..." maxlength="200">
+                                <input type="text" id="answerInput" placeholder="Enter the answer..." maxlength="100">
+                                <button class="btn btn-primary" id="createQuestionBtn">Set Question</button>
+                            </div>
+                            <div class="start-actions" id="startActions">
+                                <button class="btn btn-primary btn-start" id="startGameBtn">Start Game</button>
+                                <p class="hint" id="startGameHint">Need at least 3 players to start</p>
+                            </div>
+                        </div>
+                        
+                        <div class="game-over-display hidden" id="gameOverDisplay">
+                            <div class="winner-info" id="winnerInfo">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M8.21 13.89L7 23l5-3 5 3-1.21-9.12"/>
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <h3 id="winnerText">Winner!</h3>
+                                <p id="correctAnswer"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
